@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Implementation-Title: Zanticheat
+Implementation-Version: 1.0
+

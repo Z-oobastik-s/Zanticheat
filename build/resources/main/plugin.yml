@@ -1,0 +1,40 @@
+name: Zanticheat
+version: '1.0'
+main: org.zoobastiks.zanticheat.ZAnticheat
+api-version: '1.21'
+description: 'Античит плагин для Minecraft серверов'
+author: Zoobastiks
+website: https://github.com/zoobastiks/zanticheat
+softdepend: [WorldGuard]
+
+commands:
+  zanticheat:
+    description: Управление плагином Zanticheat
+    aliases: [zac]
+    usage: /<command> [reload|check|status|help]
+    permission: zanticheat.admin
+
+permissions:
+  zanticheat.admin:
+    description: Доступ к командам администрирования
+    default: op
+  
+  zanticheat.reload:
+    description: Разрешение на перезагрузку конфигурации
+    default: op
+  
+  zanticheat.check:
+    description: Разрешение на проверку игроков
+    default: op
+  
+  zanticheat.status:
+    description: Разрешение на просмотр статуса системы
+    default: op
+  
+  zanticheat.notify:
+    description: Получение уведомлений о нарушениях
+    default: op
+  
+  zanticheat.bypass:
+    description: Обход проверок
+    default: op 
