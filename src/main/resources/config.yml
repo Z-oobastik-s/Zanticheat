@@ -1,0 +1,159 @@
+# Конфигурация плагина Zanticheat
+# Версия 1.0
+
+# Общие настройки
+debug: false # Режим отладки (включает подробное логирование)
+
+# Настройки обнаружения
+detection:
+  cooldown_ms: 5000 # Время между проверками в миллисекундах
+  check_interval_ticks: 10 # Интервал между проверками в тиках
+  join_delay_ms: 30000 # Задержка проверки после входа игрока (30 секунд)
+  elytra:
+    enabled: true # Включить обнаружение элитр
+    cooldown_ms: 5000 # Время после использования элитр, в течение которого игрок не будет проверяться
+  vehicles:
+    enabled: true # Включить обнаружение транспорта (лодки, животные и т.д.)
+    ignore_all: true # Игнорировать все проверки для игроков в транспорте
+
+# Настройки защиты регионов
+region_protection:
+  enabled: true # Включить защиту регионов
+  use_worldguard: true # Использовать WorldGuard
+  ignored_regions: # Регионы, которые следует игнорировать
+    - "pvp_arena"
+    - "duel_zone"
+
+# Детекторы
+detectors:
+  SpeedHack:
+    enabled: true # Включить детектор SpeedHack
+    max_speed: 7.0 # Максимальная разрешенная скорость (блоков в секунду)
+    threshold: 1.0 # Множитель порога срабатывания
+    threshold_violations: 3 # Количество нарушений для активации наказания
+    elytra_speed_multiplier: 1.5 # Множитель скорости для игроков с элитрами
+  
+  FlyHack:
+    enabled: true # Включить детектор FlyHack
+    air_time_threshold: 40 # Количество тиков в воздухе для срабатывания
+    threshold: 1.0 # Множитель порога срабатывания
+    threshold_violations: 3 # Количество нарушений для активации наказания
+    ignore_elytra: true # Игнорировать игроков с элитрами
+  
+  NoFall:
+    enabled: true # Включить детектор NoFall
+    min_fall_height: 3.0 # Минимальная высота падения для проверки
+    threshold: 1.0 # Множитель порога срабатывания
+    threshold_violations: 3 # Количество нарушений для активации наказания
+    elytra_cooldown_ms: 5000 # Время в мс после использования элитр, когда игрок не проверяется на NoFall
+  
+  ElytraFly:
+    enabled: true # Включить детектор ElytraFly
+    min_velocity: 0.1 # Минимальная скорость для полета на элитрах
+    threshold: 1.0 # Множитель порога срабатывания
+    threshold_violations: 3 # Количество нарушений для активации наказания
+  
+  ElytraBoost:
+    enabled: true # Включить детектор ElytraBoost
+    max_acceleration: 1.5 # Максимальное допустимое ускорение
+    max_speed: 25.0 # Максимальная допустимая скорость без фейерверков (блоков/с)
+    firework_cooldown_ms: 3000 # Время в мс после использования фейерверка, когда игрок не проверяется
+    suspicious_accelerations: 2 # Количество подозрительных ускорений для срабатывания
+    suspicious_time_window_ms: 10000 # Временное окно для отслеживания подозрительных ускорений (мс)
+    consecutive_accelerations: 4 # Количество последовательных ускорений для срабатывания
+    threshold: 0.8 # Множитель порога срабатывания
+    threshold_violations: 2 # Количество нарушений для активации наказания
+
+# Наказания
+punishments:
+  # Настройки по умолчанию для всех детекторов
+  default_actions:
+    # Уровень нарушений >= 10
+    1:
+      auto_commands:
+        enabled: true
+        commands:
+          - "eco take %player% 50" # Штраф 50 монет
+          - "broadcast %player% был оштрафован"
+          - "broadcast за использование читов"
+
+  # Индивидуальные настройки для каждого детектора
+  actions:
+    SpeedHack:
+      1:
+        auto_commands:
+          enabled: true
+          commands:
+            - "eco take %player% 100" # Больший штраф за SpeedHack
+            - "broadcast %player% был оштрафован "
+            - "broadcast за использование SpeedHack"
+    
+    FlyHack:
+      1:
+        auto_commands:
+          enabled: true
+          commands:
+            - "eco take %player% 150" # Больший штраф за FlyHack
+            - "broadcast %player% был оштрафован"
+            - "broadcast за использование FlyHack"
+    
+    NoFall:
+      1:
+        auto_commands:
+          enabled: true
+          commands:
+            - "eco take %player% 75" # Штраф за NoFall
+            - "broadcast %player% был оштрафован"
+            - "broadcast за использование NoFall"
+    
+    ElytraFly:
+      1:
+        auto_commands:
+          enabled: true
+          commands:
+            - "eco take %player% 200" # Больший штраф за ElytraFly
+            - "broadcast %player% был оштрафован"
+            - "broadcast за использование ElytraFly"
+            - "minecraft:clear %player% minecraft:elytra 1" # Удалить элитры у игрока
+    
+    ElytraBoost:
+      1:
+        auto_commands:
+          enabled: true
+          commands:
+            - "eco take %player% 150" # Штраф за ElytraBoost
+            - "broadcast %player% был оштрафован"
+            - "broadcast за использование ElytraBoost"
+            - "minecraft:clear %player% minecraft:elytra 1" # Удалить элитры у игрока
+            - "minecraft:clear %player% minecraft:firework_rocket" # Удалить фейерверки у игрока
+
+# Настройки логирования
+logging:
+  enabled: true # Включить логирование в файл
+  file: "violations.log" # Имя файла для логирования
+  console: true # Выводить логи в консоль
+  format: "%date% [%detector%] %player% (%level%): %description% в %world% на %x%, %y%, %z%" # Формат логирования
+  prefix: "" # Пустой префикс (ранее был "[Zanticheat]")
+
+# Белый список
+whitelist:
+  bypass_for_ops: true # Операторы сервера в белом списке
+  bypass_with_permission: true # Игроки с permission zanticheat.bypass в белом списке
+  players: # Список игроков в белом списке (по нику)
+    - "admin1"
+    - "admin2"
+
+# Настройки производительности
+performance:
+  async_checks: true # Выполнять проверки асинхронно, когда это возможно
+  max_checks_per_second: 100 # Максимальное количество проверок в секунду
+  reduce_checks_on_high_load: true # Уменьшать количество проверок при высокой нагрузке
+
+# Интеграции с другими плагинами
+integrations:
+  worldguard:
+    enabled: true # Включить интеграцию с WorldGuard
+  vault:
+    enabled: true # Включить интеграцию с Vault для экономики
+  luckperms:
+    enabled: true # Включить интеграцию с LuckPerms для проверки прав 

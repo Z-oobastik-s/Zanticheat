@@ -1,0 +1,41 @@
+# Файл сообщений для плагина Zanticheat
+# Версия 1.0
+
+# Общие сообщения
+plugin_prefix: "&r " # Префикс плагина для сообщений
+
+# Сообщения команд
+messages:
+  # Общие сообщения
+  no_permission: "&cУ вас нет прав на использование этой команды!"
+  unknown_command: "&cНеизвестная команда. Используйте &f/zac help &cдля справки"
+  
+  # Сообщения reload
+  config_reloaded: "&aКонфигурация успешно перезагружена!"
+  
+  # Сообщения check
+  player_not_specified: "&cНе указан игрок для проверки!"
+  player_not_found: "&cИгрок &f%player% &cне найден"
+  checking_player: "&7Проверка игрока &f%player%&7..."
+  check_positive: "&cУ игрока &f%player% &cобнаружены подозрительные действия"
+  check_negative: "&aУ игрока &f%player% &aне обнаружено нарушений"
+  
+  # Сообщения whitelist
+  whitelist_player_not_specified: "&cНе указан игрок для добавления в белый список"
+  whitelist_player_added: "&aИгрок &f%player% &aдобавлен в белый список"
+  whitelist_player_already_added: "&eИгрок &f%player% &eуже находится в белом списке"
+  whitelist_player_removed: "&aИгрок &f%player% &aудален из белого списка"
+  whitelist_player_not_found: "&eИгрок &f%player% &eне найден в белом списке"
+  whitelist_status: "&7Игроков в белом списке: &f%count%"
+  whitelist_list: "&7Белый список: &f%players%"
+  
+  # Сообщения обнаружения
+  violation_detected: "&c[Нарушение] &f%player% &7возможно использует &f%detector% &7(&f%level%&7) - %description% &7в &f%world% &7на координатах &f%x%, %y%, %z%"
+  
+  # Сообщения наказаний
+  punish_kick: "&cВы были кикнуты за подозрение в читах"
+  punish_ban: "&cВы были забанены за использование запрещенных модификаций"
+  
+  # Сообщения с использованием градиента (MiniMessage)
+  gradient_warning: "<gradient:#FF0000:#FFFF00>Внимание! Обнаружены подозрительные действия!</gradient>"
+  gradient_kick: "<gradient:#FF0000:#800000>Вы были кикнуты за подозрение в использовании читов</gradient>" 
